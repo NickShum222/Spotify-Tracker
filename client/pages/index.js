@@ -17,7 +17,7 @@ export default function Home() {
         <div className="h-[100vh]">
           {token ? (
             <div>
-              <Dashboard/>
+              <Dashboard token={token}/>
             </div>
           ) : (
             <Login />

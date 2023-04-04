@@ -11,7 +11,7 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 
-const generateRandomString = length => {
+const generateCodeVerifier = length => {
   let str = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   for (let i = 0; i < length; i++) {
@@ -24,7 +24,7 @@ const stateKey = 'spotify_auth_state';
 
 
 app.get('/login', (req, res) => {
-  const state = generateRandomString(16);
+  const state = generateCodeVerifier(16);
   res.cookie(stateKey, state);
 
   const queryParams = querystring.stringify({

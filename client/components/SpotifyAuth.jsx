@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import LRU from "lru-cache";
+
+
 const LOCALSTORAGE_KEYS = {
   accessToken: "spotify_access_token",
   refreshToken: "spotify_refresh_token",
@@ -80,11 +83,32 @@ export const getAccessToken = () => {
   return token;
 };
 
-export const getCurrentUserProfile = () => axios.get('/me');
-
 export const logout = () => {
   for (const property in LOCALSTORAGE_KEYS) {
     window.localStorage.removeItem(LOCALSTORAGE_KEYS[property]);
   }
   window.location = window.location.origin;
 };
+
+
+axios.defaults.headers['Content-Type'] = 'application/json';
+
+
+
+const cache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
+
+export const getUserProfile = async (accessToken) => {
+  const cachedResponse = cache.get(accessToken);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+  const token_type = "Bearer";
+  const response = await axios.get("https://api.spotify.com/v1/me", {
+    headers: {
+      Authorization: `${token_type} ${accessToken}`,
+    },
+  });
+  cache.set(accessToken, response);
+  return response;
+};
+
