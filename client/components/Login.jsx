@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Login = () => {
   return (
-    <div className="h-full pt-64 pb-8 flex-col flex justify-between gap-[20px] items-center bg-black">
+    <div className="min-h-[100vh] pt-64 pb-8 flex-col flex justify-between gap-[20px] items-center bg-black">
       <div className="flex flex-col justify-start gap-[20px] items-center">
         <div className="text-white text-[80px] font-semibold">
           Spot my <span className="text-[#1bb954]">Stats</span>
@@ -13,7 +13,6 @@ export const Login = () => {
       </div>
 
       <div className="text-[#BFBFBF] font-mono flex flex-col justify-center items-center">
-        {" "}
         <a
           href=""
           target="_blank"
