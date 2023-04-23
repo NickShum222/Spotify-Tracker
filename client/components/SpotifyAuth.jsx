@@ -98,6 +98,7 @@ axios.defaults.headers['Content-Type'] = 'application/json';
 const userProfileCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const userPlaylistCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const recentlyPlayedCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
+const currentlyPlayingCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 
 export const getUserProfile = async (accessToken) => {
   const cachedResponse = userProfileCache.get(accessToken);
@@ -135,7 +136,7 @@ export const getRecentlyPlayed = async (accessToken) => {
     return cachedResponse;
   }
   const token_type = "Bearer";
-  const response = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=25", {
+  const response = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=30", {
     headers: {
       Authorization: `${token_type} ${accessToken}`,
     },
@@ -144,5 +145,19 @@ export const getRecentlyPlayed = async (accessToken) => {
   return response;
 };
 
+export const getCurrentlyPlaying = async (accessToken) => {
+  const cachedResponse = currentlyPlayingCache.get(accessToken);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+  const token_type = "Bearer";
+  const response = await axios.get(`https://api.spotify.com/v1/me/player/currently-playing`, {
+    headers: {
+      Authorization: `${token_type} ${accessToken}`,
+    },
+  });
+  currentlyPlayingCache.set(accessToken, response);
+  return response;
+};
 
 
