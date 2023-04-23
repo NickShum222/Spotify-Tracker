@@ -18,7 +18,7 @@ const Sidebar = () => {
   ]
   const [active, setActive] = useState("/");
   return (
-    <div className='bg-black h-[100vh] w-[20%]'>
+    <div className='bg-black h-[100vh] w-[15%] fixed flex flex-col justify-end items-center shadow-2xl'>
       
     </div>
   )

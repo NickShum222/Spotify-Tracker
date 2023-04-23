@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import LRU from "lru-cache";
 
-
 const LOCALSTORAGE_KEYS = {
   accessToken: "spotify_access_token",
   refreshToken: "spotify_refresh_token",
@@ -24,7 +23,7 @@ export const getAccessToken = () => {
         return false;
       }
       const millisecondsElapsed = Date.now() - Number(timestamp);
-      return (millisecondsElapsed / 1000) > Number(expireTime);
+      return millisecondsElapsed / 1000 > Number(expireTime);
     };
 
     const refreshToken = async () => {
@@ -37,9 +36,11 @@ export const getAccessToken = () => {
           console.error("No refresh token available");
           logout();
         }
+        const refreshTokenLink = "http://localhost:8888/refresh_token?refresh_token=" + LOCALSTORAGE_VALUES.refreshToken;
         const { data } = await axios.get(
-          `http://localhost:8888/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`
+          refreshTokenLink
         );
+        
         window.localStorage.setItem(
           LOCALSTORAGE_KEYS.accessToken,
           data.access_token
@@ -51,6 +52,7 @@ export const getAccessToken = () => {
       }
     };
 
+    
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const queryParams = {
@@ -90,10 +92,7 @@ export const logout = () => {
   window.location = window.location.origin;
 };
 
-
-axios.defaults.headers['Content-Type'] = 'application/json';
-
-
+axios.defaults.headers["Content-Type"] = "application/json";
 
 const userProfileCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const userPlaylistCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
@@ -121,11 +120,14 @@ export const getUserPlaylist = async (accessToken) => {
     return cachedResponse;
   }
   const token_type = "Bearer";
-  const response = await axios.get("https://api.spotify.com/v1/me/playlists?limit=50", {
-    headers: {
-      Authorization: `${token_type} ${accessToken}`,
-    },
-  });
+  const response = await axios.get(
+    "https://api.spotify.com/v1/me/playlists?limit=50",
+    {
+      headers: {
+        Authorization: `${token_type} ${accessToken}`,
+      },
+    }
+  );
   userPlaylistCache.set(accessToken, response);
   return response;
 };
@@ -136,11 +138,14 @@ export const getRecentlyPlayed = async (accessToken) => {
     return cachedResponse;
   }
   const token_type = "Bearer";
-  const response = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=30", {
-    headers: {
-      Authorization: `${token_type} ${accessToken}`,
-    },
-  });
+  const response = await axios.get(
+    "https://api.spotify.com/v1/me/player/recently-played?limit=30",
+    {
+      headers: {
+        Authorization: `${token_type} ${accessToken}`,
+      },
+    }
+  );
   recentlyPlayedCache.set(accessToken, response);
   return response;
 };
@@ -151,13 +156,14 @@ export const getCurrentlyPlaying = async (accessToken) => {
     return cachedResponse;
   }
   const token_type = "Bearer";
-  const response = await axios.get(`https://api.spotify.com/v1/me/player/currently-playing`, {
-    headers: {
-      Authorization: `${token_type} ${accessToken}`,
-    },
-  });
+  const response = await axios.get(
+    `https://api.spotify.com/v1/me/player/currently-playing`,
+    {
+      headers: {
+        Authorization: `${token_type} ${accessToken}`,
+      },
+    }
+  );
   currentlyPlayingCache.set(accessToken, response);
   return response;
 };
-
-
