@@ -6,7 +6,7 @@ import {
   getRecentlyPlayed,
   getCurrentlyPlaying,
 } from "@/components/SpotifyAuth";
-import { styles } from "@/styles";
+
 import Track from "./Track";
 
 const Dashboard = ({ token }) => {
@@ -78,7 +78,10 @@ const Dashboard = ({ token }) => {
                 </p>
               )}
             </div>
-            <button className=" text-white border-white border-[1px] py-2 text-[15px] px-8 rounded-full mt-5 transform duration-300 hover:bg-white font-semibold hover:text-black ease-in-out" onClick={handleLogout}>
+            <button
+              className=" text-white border-white border-[1px] py-2 text-[15px] px-8 rounded-full mt-5 transform duration-300 hover:bg-white font-semibold hover:text-black ease-in-out"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </div>
@@ -97,9 +100,9 @@ const Dashboard = ({ token }) => {
           Recently Played
         </h3>
         <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite pb-2 mb-5 px-6">
-            <p className="text-semiwhite w-[50%] text-[17px]">Track</p>
-            <p className="text-semiwhite w-[30%] text-[17px]">Album</p>
-            <p className="text-semiwhite w-[20%] text-[17px]">Played at</p>
+          <p className="text-semiwhite w-[50%] text-[17px]">Track</p>
+          <p className="text-semiwhite w-[30%] text-[17px]">Album</p>
+          <p className="text-semiwhite w-[20%] text-[17px]">Played at</p>
         </div>
         {currentTrack && currentTrack.item && (
           <div className="w-full flex flex-col gap-3 justify-start items-start mb-3">
@@ -110,10 +113,10 @@ const Dashboard = ({ token }) => {
               album={currentTrack.item.album.name}
               time={currentTrack.item.duration_ms}
               url={currentTrack.item.external_urls.spotify}
-              current = {true}
-              recent = {true}
-              playedAt = {currentTrack.timestamp}
-              />
+              current={true}
+              recent={true}
+              playedAt={currentTrack.timestamp}
+            />
           </div>
         )}
         {tracks && tracks.items && (
@@ -127,10 +130,9 @@ const Dashboard = ({ token }) => {
                 album={track.track.album.name}
                 time={track.track.duration_ms}
                 url={track.track.external_urls.spotify}
-                current = {false}
-                recent = {true}
-                playedAt = {track.played_at}
-
+                current={false}
+                recent={true}
+                playedAt={track.played_at}
               />
             ))}
           </div>

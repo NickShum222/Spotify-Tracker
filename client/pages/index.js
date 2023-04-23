@@ -22,7 +22,6 @@ export default function Home() {
       </Head>
       <main>
         <div className="w-full min-h-[100vh] overflow-hidden bg-[#121212]">
-          <Sidebar/>
           {token ? (
             <div className="w-full overflow-hidden bg-[#121212]">
               <Dashboard token={token} />

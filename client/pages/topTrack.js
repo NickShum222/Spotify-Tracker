@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const TopArtists = () => {
+const TopTrack = () => {
   const router = useRouter();
   const [token, setToken] = useState("");
 
@@ -15,7 +15,7 @@ const TopArtists = () => {
 
   return (
     <>
-          <Head>
+      <Head>
         <title>Spot my Stats</title>
         <meta name="description" content="Spotify Stat Tracker" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,12 +27,12 @@ const TopArtists = () => {
           rel="stylesheet"
         />
       </Head>
-    <div>
-      <h1>Top Artists</h1>
-      <p>Token: {token}</p>
-    </div>
+      <div>
+        <h1>TopTrack</h1>
+        <p>Token: {token}</p>
+      </div>
     </>
   );
 };
 
-export default TopArtists;
+export default TopTrack;
