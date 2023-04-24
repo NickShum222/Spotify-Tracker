@@ -12,6 +12,7 @@ const Track = ({
   current,
   recent,
   playedAt,
+  isPlaying,
 }) => {
   const minutes = Math.floor(time / 60000);
   const seconds = Math.floor((time % 60000) / 1000);
@@ -34,7 +35,7 @@ const Track = ({
         >
           <div className="relative">
             <img src={img} alt="track" className={`h-[60px] w-[60px]`} />
-            {current && (
+            {current && isPlaying &&(
               <div className="absolute top-0 left-0 w-full  bg-black opacity-70 h-full flex justify-center items-center z-10">
                 <Audio
                   color="#1DB954"

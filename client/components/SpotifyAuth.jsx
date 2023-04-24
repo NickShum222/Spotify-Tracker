@@ -17,6 +17,7 @@ export const getAccessToken = () => {
       expireTime: window.localStorage.getItem(LOCALSTORAGE_KEYS.expireTime),
       timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
     };
+
     const hasTokenExpired = () => {
       const { accessToken, timestamp, expireTime } = LOCALSTORAGE_VALUES;
       if (!accessToken || !timestamp) {
@@ -33,10 +34,11 @@ export const getAccessToken = () => {
           LOCALSTORAGE_VALUES.refreshToken === "undefined" ||
           Date.now() - Number(LOCALSTORAGE_VALUES.timestamp) / 1000 < 1000
         ) {
-          console.error("No refresh token available");
+          console.error("Refresh token is invalid");
           logout();
         }
         const refreshTokenLink = "http://localhost:8888/refresh_token?refresh_token=" + LOCALSTORAGE_VALUES.refreshToken;
+        console.log(refreshTokenLink)
         const { data } = await axios.get(
           refreshTokenLink
         );
@@ -49,6 +51,7 @@ export const getAccessToken = () => {
         window.location.reload();
       } catch (e) {
         console.error(e);
+        logout();
       }
     };
 
@@ -81,7 +84,7 @@ export const getAccessToken = () => {
       window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
       setToken(queryParams[LOCALSTORAGE_KEYS.accessToken]);
     }
-  }, []);
+  }, [token, LOCALSTORAGE_KEYS.timestamp]);
   return token;
 };
 

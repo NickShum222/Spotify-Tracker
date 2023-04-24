@@ -116,6 +116,7 @@ const Dashboard = ({ token }) => {
               current={true}
               recent={true}
               playedAt={currentTrack.timestamp}
+              isPlaying = {currentTrack.is_playing}
             />
           </div>
         )}
