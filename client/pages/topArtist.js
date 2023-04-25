@@ -34,7 +34,10 @@ const TopArtists = () => {
       setTopArtists(getTopArtist.data);
       console.log(getTopArtist)
     };
-    catchErrors(fetchData)();
+    const timeoutId = setTimeout(() => {
+      catchErrors(fetchData)();
+    }, 50);
+    return () => clearTimeout(timeoutId);
   }, [token, range]);
 
 

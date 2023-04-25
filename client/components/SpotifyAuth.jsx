@@ -186,10 +186,6 @@ export const getTopArtists = async (accessToken, range) => {
 };
 
 export const getTopTracks = async (accessToken, range) => {
-  const cachedResponse = topTracksCache.get(accessToken);
-  if (cachedResponse) {
-    return cachedResponse;
-  }
   const token_type = "Bearer";
   const response = await axios.get(
     `https://api.spotify.com/v1/me/top/tracks?time_range=${range}&limit=50`,
@@ -199,7 +195,6 @@ export const getTopTracks = async (accessToken, range) => {
       },
     }
   );
-  topTracksCache.set(accessToken, response);
   return response;
 };
 

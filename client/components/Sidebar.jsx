@@ -31,7 +31,10 @@ const Sidebar = () => {
       const getPlaylists = await getUserPlaylist(token);
       setPlaylists(getPlaylists.data);
     };
-    catchErrors(fetchData)();
+    const timeoutId = setTimeout(() => {
+      catchErrors(fetchData)();
+    }, 50);
+    return () => clearTimeout(timeoutId);
   }, [token]);
 
   const router = useRouter();
