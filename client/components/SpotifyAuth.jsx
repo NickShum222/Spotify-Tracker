@@ -102,6 +102,8 @@ const userPlaylistCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const recentlyPlayedCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const currentlyPlayingCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 
+
+
 export const getUserProfile = async (accessToken) => {
   const cachedResponse = userProfileCache.get(accessToken);
   if (cachedResponse) {
@@ -170,3 +172,35 @@ export const getCurrentlyPlaying = async (accessToken) => {
   currentlyPlayingCache.set(accessToken, response);
   return response;
 };
+export const getTopArtists = async (accessToken, range) => {
+  const token_type = "Bearer";
+  const response = await axios.get(
+    `https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${range}`,
+    {
+      headers: {
+        Authorization: `${token_type} ${accessToken}`,
+      },
+    }
+  );
+  return response;
+};
+
+export const getTopTracks = async (accessToken, range) => {
+  const cachedResponse = topTracksCache.get(accessToken);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+  const token_type = "Bearer";
+  const response = await axios.get(
+    `https://api.spotify.com/v1/me/top/tracks?time_range=${range}&limit=50`,
+    {
+      headers: {
+        Authorization: `${token_type} ${accessToken}`,
+      },
+    }
+  );
+  topTracksCache.set(accessToken, response);
+  return response;
+};
+
+

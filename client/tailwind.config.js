@@ -11,6 +11,7 @@ module.exports = {
         spotify: '#1DB954',
         semiwhite: '#B3B3B3',
       },
+
     },
   },
   plugins: [],

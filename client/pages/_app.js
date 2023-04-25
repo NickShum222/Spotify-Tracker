@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <div>
-      {!isLoginPage && <Sidebar token={token} />}
+      {!isLoginPage && <Sidebar />}
       <Component {...pageProps} />
     </div>
   );

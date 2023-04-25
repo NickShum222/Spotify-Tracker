@@ -29,16 +29,15 @@ const Dashboard = ({ token }) => {
     const fetchData = async () => {
       const userProfile = await getUserProfile(token);
       setProfile(userProfile.data);
-      console.log(userProfile);
+
       const userPlaylists = await getUserPlaylist(token);
       setPlaylists(userPlaylists.data);
-      console.log(userPlaylists);
+
       const recentlyPlayed = await getRecentlyPlayed(token);
       setTracks(recentlyPlayed.data);
-      console.log(recentlyPlayed);
+
       const currentlyPlaying = await getCurrentlyPlaying(token);
       setCurrentTrack(currentlyPlaying.data);
-      console.log(currentlyPlaying);
     };
 
     catchErrors(fetchData());
@@ -116,7 +115,7 @@ const Dashboard = ({ token }) => {
               current={true}
               recent={true}
               playedAt={currentTrack.timestamp}
-              isPlaying = {currentTrack.is_playing}
+              isPlaying={currentTrack.is_playing}
             />
           </div>
         )}
