@@ -11,6 +11,7 @@ const TopArtists = () => {
   const catchErrors = (fn) => {
     return function (...args) {
       return fn(...args).catch((err) => {
+        router.push("/login");
         console.error(err);
       });
     };

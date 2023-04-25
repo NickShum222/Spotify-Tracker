@@ -3,23 +3,27 @@ import { Login } from "@/components/Login";
 import { getAccessToken, logout } from "@/components/SpotifyAuth";
 import Dashboard from "@/components/Dashboard";
 import Sidebar from "@/components/Sidebar";
+import SEO from "@/components/SEO";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 export default function Home() {
   const token = getAccessToken();
+  const router = useRouter();
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (!token) {
+        router.push("/login");
+      }
+    }, 50); 
+  
+    return () => clearTimeout(timeoutId); 
+  }, [token, router]);
+  
 
   return (
     <>
-      <Head>
-        <title>Spot my Stats</title>
-        <meta name="description" content="Spotify Stat Tracker" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+      <SEO />
       <main>
         <div className="w-full min-h-[100vh] overflow-hidden bg-[#121212]">
           {token ? (
@@ -27,7 +31,7 @@ export default function Home() {
               <Dashboard token={token} />
             </div>
           ) : (
-            <Login />
+            null
           )}
         </div>
       </main>
