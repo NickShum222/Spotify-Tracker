@@ -12,8 +12,8 @@ const Artist = ({ index, img, name, url }) => {
         className="rounded-full object-cover h-[200px] w-[200px] "
       />
       <div className="flex flex-row justify-center items-center mt-2 gap-2">
-        <p className="text-semiwhite text-[14px]">{num}.</p>
-        <p className="text-semiwhite text-[14px] ">{name}</p>
+        <p className="text-semiwhite text-[16px]">{num}.</p>
+        <p className="text-semiwhite text-[16px] ">{name}</p>
       </div>
       </a>
     </div>

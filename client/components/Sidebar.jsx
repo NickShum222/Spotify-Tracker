@@ -31,6 +31,7 @@ const Sidebar = () => {
     const fetchData = async () => {
       const getPlaylists = await getUserPlaylist(token);
       setPlaylists(getPlaylists.data);
+      console.log(getPlaylists);
     };
     const timeoutId = setTimeout(() => {
       catchErrors(fetchData)();
@@ -55,68 +56,160 @@ const Sidebar = () => {
   ];
 
   const [active, setActive] = useState("/");
+  const [nav, setNav] = useState(false);
+  const toggleNav = () => {
+    setNav(!nav);
+  };
   return (
-    <div className="bg-black h-[100vh] w-[250px] fixed flex flex-col justify-start items-center shadow-2xl z-50">
-      <h3 className="text-white font-semibold text-[28px] pt-5">
-        Spoti<span className="text-spotify italic ">Track</span>
-      </h3>
-      <div className="flex flex-col justify-start items-start w-full pl-6 mt-16">
-        <p className="text-semiwhite text-[22px] font-light mb-2">Menu</p>
+    <>
+      <div className="bg-black md:h-[100vh] max-md:w-[100vw] lg:w-[250px] md:w-[150px] md:px-0 px-4 fixed h-[70px] flex md:flex-col flex-row md:justify-start items-center justify-between shadow-2xl z-50">
+        <h3 className="text-white font-semibold lg:text-[28px] text-[22px] md:pt-5">
+          Spoti<span className="text-spotify italic ">Track</span>
+        </h3>
+        {/* Desktop Menu */}
+        <div className="md:flex md:flex-col hidden lg:justify-start lg:items-start justify-center items-center w-full lg:px-0 px-4 lg:pl-6 mt-16">
+          <p className="text-semiwhite lg:text-[22px] md:text-[20px] font-light mb-2">
+            Menu
+          </p>
+          <div className="w-full lg:bg-transparent md:bg-[#121212] rounded-lg">
+            {navLinks.map((link, index) => (
+              <div
+                key={index}
+                className={`duration-150  ease-in transform  rounded-l-sm border-r-[4px] flex lg:flex-row md:flex-col  border-spotify md:justify-start md:items-center justify-center items-center w-full py-2 md:px-4 cursor-pointer ${
+                  active === link.path
+                    ? "border-opacity-100 "
+                    : "border-opacity-0 hover:border-opacity-100"
+                }`}
+                onClick={() => {
+                  setActive(link.path);
+                  router.push(link.path);
+                }}
+              >
+                {index === 0 && (
+                  <BiHomeAlt2 className="text-semiwhite mr-2" size={"1.1em"} />
+                )}
+                {index === 1 && (
+                  <TbMicrophone2
+                    className="text-semiwhite mr-2"
+                    size={"1.3em"}
+                  />
+                )}
+                {index === 2 && (
+                  <IoMusicalNotesOutline
+                    className="text-semiwhite  mr-2"
+                    size={"1.3em"}
+                  />
+                )}
+                <Link href={link.path}>
+                  <p className="text-semiwhite lg:text-[18px] md:text-[15px]">
+                    {link.name}
+                  </p>
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col lg:justify-start lg:items-start justify-center items-center  lg:mt-4 mt-8 w-full">
+            <p className="text-semiwhite lg:text-[22px] md:text-[20px] font-light mb-2">
+              Playlists
+            </p>
+            <div className="w-full h-[350px] overflow-y-scroll md:bg-[#121212] lg:bg-transparent rounded-lg  mt-2">
+              {playlists && playlists.items && (
+                <div className="flex flex-col w-full lg:gap-1 gap-3 lg:px-0 px-4 lg:pt-0  md:pt-4 justify-start items-start">
+                  {playlists.items.map((playlist, index) => (
+                    <div key={index} className={` w-full `}>
+                      <p
+                        onClick={() => {
+                          setActive(playlist.id);
+                          router.push(playlist.id);
+                        }}
+                        className={`hover:text-spotify duration-150 lg:inline hidden ease-in transition-all ${
+                          active === playlist.id
+                            ? "text-spotify"
+                            : "text-semiwhite"
+                        } text-[18px] cursor-pointer`}
+                      >
+                        {playlist.name}
+                      </p>
+                      <img
+                        src={playlist.images[0].url}
+                        alt={playlist.name}
+                        className="h-full w-full rounded-md lg:hidden inline cursor-pointer"
+                        onClick={() => {
+                          setActive(playlist.id);
+                          router.push(playlist.id);
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+
+        <div
+          className="md:hidden flex flex-col cursor-pointer z-[99]"
+          onClick={toggleNav}
+        >
+          <div
+            className={`transform duration-300 w-[25px] h-[3px] bg-white rounded-full ease-in-out my-[2px] mx-1 ${
+              nav ? "translate-y-[7px] origin rotate-45 transition " : ""
+            }`}
+          ></div>
+          <div
+            className={`transform duration-300 w-[25px] h-[3px] bg-white rounded-full ease-in-out my-[2px] mx-1 ${
+              nav ? "translate-x-[100%] opacity-0" : ""
+            }`}
+          ></div>
+          <div
+            className={`transform duration-300 w-[25px] h-[3px] bg-white rounded-full ease-in-out my-[2px] mx-1 ${
+              nav ? "translate-y-[-7px] origin -rotate-45 transition" : ""
+            }`}
+          ></div>
+        </div>
+      </div>
+      <div className={`w-[100vw] h-full ${nav ? "backdrop-blur-lg" : ""} md:hidden fixed  z-[40] duration-300 flex justify-center  transition-all ease-out `} onClick={() => {
+        toggleNav();
+      }}>
+      <div className={`${nav ? "" : "-translate-y-[300px]"} duration-300  ease-out transition-all transform w-full rounded-md z-[40] fixed bg-black md:hidden flex flex-col justify-center items-center mt-[70px] py-6 gap-3`}>
         {navLinks.map((link, index) => (
           <div
             key={index}
-            className={`duration-150  ease-in transform  rounded-l-sm border-r-[4px] flex flex-row  border-spotify justify-start items-center w-full py-2 px-4 cursor-pointer ${
-              active === link.path
-                ? "border-opacity-100 "
-                : "border-opacity-0 hover:border-opacity-100"
-            }`}
+            className={`flex flex-row items-center w-full justify-center`}
             onClick={() => {
               setActive(link.path);
               router.push(link.path);
+              toggleNav();
             }}
           >
             {index === 0 && (
-              <BiHomeAlt2 className="text-semiwhite text-[20px] mr-2" />
+              <BiHomeAlt2 className="text-semiwhite mr-2" size={"1.5em"} />
             )}
             {index === 1 && (
-              <TbMicrophone2 className="text-semiwhite text-[20px] mr-2" />
+              <TbMicrophone2 className="text-semiwhite mr-2" size={"1.5em"} />
             )}
             {index === 2 && (
-              <IoMusicalNotesOutline className="text-semiwhite text-[20px] mr-2" />
+              <IoMusicalNotesOutline
+                className="text-semiwhite  mr-2"
+                size={"1.5em"}
+              />
             )}
             <Link href={link.path}>
-              <p className="text-semiwhite text-[18px]">{link.name}</p>
+              <p className="text-semiwhite text-[22px]">
+                {link.name}
+              </p>
             </Link>
           </div>
         ))}
-        <div className="flex flex-col justify-start items-start mt-4 w-full">
-          <p className="text-semiwhite text-[22px] font-light mb-2">
-            Playlists
-          </p>
-          <div className="w-full h-[350px] overflow-y-scroll mt-2">
-            {playlists && playlists.items && (
-              <div className="flex flex-col w-full gap-1 justify-start items-start">
-                {playlists.items.map((playlist, index) => (
-                  <div key={index} className={` w-full `}>
-                    <p
-                      onClick={() => {
-                        setActive(playlist.id);
-                        router.push(playlist.id);
-                      }}
-                      className={`hover:text-spotify duration-150 ease-in transition-all ${active === playlist.id ? "text-spotify" : "text-semiwhite"} text-[18px] cursor-pointer`}
-                    >
-                      {playlist.name}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
 
-          <div className=" w-full flex flex-col justify-start items-start"></div>
-        </div>
+
       </div>
-    </div>
+      </div>
+    
+    </>
   );
 };
 

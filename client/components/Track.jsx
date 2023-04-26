@@ -25,14 +25,15 @@ const Track = ({
     dateOptions
   )}, ${playedDate.toLocaleTimeString(undefined, timeOptions)}`;
   return (
-    <div className="w-full flex flex-row justify-start items-center px-6">
-      <div className="flex flex-row w-[50%] gap-4 justify-start items-center">
-        <a
+    <div className="w-full flex flex-row justify-start items-center">
+           <a
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="cursor-pointer"
+          className="cursor-pointer w-full flex flex-row justify-start items-center px-6"
         >
+      <div className="flex flex-row w-[50%] gap-4 justify-start items-center">
+  
           <div className="relative">
             <img src={img} alt="track" className={`h-[60px] w-[60px]`} />
             {current && isPlaying &&(
@@ -46,7 +47,7 @@ const Track = ({
               </div>
             )}
           </div>
-        </a>
+        
         <div className="flex flex-col h-[60px] justify-between">
           <p
             className={`${current ? "text-spotify" : "text-white"} text-[16px]`}
@@ -76,6 +77,7 @@ const Track = ({
       >
         {recent ? playedDateDisplay : timeDisplay}
       </div>
+      </a>
     </div>
   );
 };

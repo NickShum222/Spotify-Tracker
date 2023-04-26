@@ -25,7 +25,7 @@ const TopArtists = () => {
     if (storedToken) {
       setToken(storedToken);
     } else {
-      router.push("/login");
+      window.location.reload();
     }
   }, []);
 

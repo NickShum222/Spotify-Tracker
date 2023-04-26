@@ -37,12 +37,12 @@ export const getAccessToken = () => {
           console.error("Refresh token is invalid");
           logout();
         }
-        const refreshTokenLink = "http://localhost:8888/refresh_token?refresh_token=" + LOCALSTORAGE_VALUES.refreshToken;
-        console.log(refreshTokenLink)
-        const { data } = await axios.get(
-          refreshTokenLink
-        );
-        
+        const refreshTokenLink =
+          "http://localhost:8888/refresh_token?refresh_token=" +
+          LOCALSTORAGE_VALUES.refreshToken;
+        console.log(refreshTokenLink);
+        const { data } = await axios.get(refreshTokenLink);
+
         window.localStorage.setItem(
           LOCALSTORAGE_KEYS.accessToken,
           data.access_token
@@ -55,7 +55,6 @@ export const getAccessToken = () => {
       }
     };
 
-    
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const queryParams = {
@@ -101,8 +100,6 @@ const userProfileCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const userPlaylistCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const recentlyPlayedCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
 const currentlyPlayingCache = new LRU({ maxAge: 1000 * 60 * 10, max: 100 });
-
-
 
 export const getUserProfile = async (accessToken) => {
   const cachedResponse = userProfileCache.get(accessToken);
@@ -198,4 +195,16 @@ export const getTopTracks = async (accessToken, range) => {
   return response;
 };
 
-
+export const getPlaylistItems = async (accessToken, playlistId) => {
+  const token_type = "Bearer";
+  const response = await axios.get(
+    `
+    https://api.spotify.com/v1/playlists/${playlistId}`,
+    {
+      headers: {
+        Authorization: `${token_type} ${accessToken}`,
+      },
+    }
+  );
+  return response;
+};
