@@ -30,18 +30,18 @@ const Track = ({
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="cursor-pointer w-full flex flex-row justify-start items-center px-6"
+          className="cursor-pointer w-full flex flex-row justify-start items-center md:px-6 px-2"
         >
-      <div className="flex flex-row w-[50%] gap-4 justify-start items-center">
+      <div className="flex flex-row lg:w-[50%] sm:w-[80%] w-[70%] sm:gap-4 gap-2 justify-start items-center">
   
           <div className="relative">
-            <img src={img} alt="track" className={`h-[60px] w-[60px]`} />
+            <img src={img} alt="track" className={`md:h-[60px] md:w-[60px] h-[55px] w-[55px]`} />
             {current && isPlaying &&(
-              <div className="absolute top-0 left-0 w-full  bg-black opacity-70 h-full flex justify-center items-center z-10">
+              <div className="absolute top-0 left-0 w-full  bg-black bg-opacity-60 h-full flex justify-center items-center z-10">
                 <Audio
                   color="#1DB954"
                   height={40}
-                  width={60}
+                  width={40}
                   className="z-20"
                 />
               </div>
@@ -50,30 +50,41 @@ const Track = ({
         
         <div className="flex flex-col h-[60px] justify-between">
           <p
-            className={`${current ? "text-spotify" : "text-white"} text-[16px]`}
+            className={`${current ? "text-spotify" : "text-white"} md:text-[16px] sm:text-[14px] text-[13px]`}
           >
             {title}
           </p>
+          <div className="w-full flex sm:flex-row flex-col justify-start items-start sm:gap-4 gap-0">
           <p
             className={`${
               current ? "text-spotify" : "text-semiwhite"
-            } text-[16px]`}
+            } md:text-[16px] sm:text-[14px] text-[13px]`}
           >
             {artist}
           </p>
+          <ul className="list-disc list-inside">
+          <li  className={`lg:hidden sm:list-item hidden ${
+              current ? "text-spotify" : "text-semiwhite"
+            } md:text-[16px] sm:text-[14px] text-[13px]`}>
+          {album}
+          </li>
+          </ul>
+
+          </div>
+
         </div>
       </div>
       <div
-        className={`w-[30%] ${
+        className={`w-[30%]  ${
           current ? "text-spotify" : "text-semiwhite"
-        } text-[16px] `}
+        } md:text-[16px] sm:text-[14px] text-[13px] lg:inline hidden `}
       >
         {album}
       </div>
       <div
         className={`${
           current ? "text-spotify" : "text-semiwhite"
-        } w-[20%]  text-[16px]`}
+        } sm:w-[20%] w-[30%] md:text-[16px] sm:text-[14px] text-[13px]`}
       >
         {recent ? playedDateDisplay : timeDisplay}
       </div>

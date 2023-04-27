@@ -45,41 +45,41 @@ const Dashboard = ({ token }) => {
   }, []);
   return (
     <section
-      className={`xl:pl-[370px] xl:pr-[120px] lg:pl-[350px] lg:pr-[100px] md:pl-36 md:pr-[80px] pl-6 pr-6 py-24 z-[5] flex flex-col justify-start items-start min-h-[100vh]`}
+      className={`xl:pl-[370px] xl:pr-[120px] lg:pl-[320px] lg:pr-[100px] md:pl-[200px] md:pr-[80px] pl-5 pr-5 md:py-24 py-12 z-[5] pt-[90px] flex flex-col justify-start items-start min-h-[100vh]`}
     >
       {profile && (
-        <div className="w-full flex flex-row gap-[60px]  justify-start items-center pb-10 ">
-          <div>
+        <div className="w-full flex flex-row md:gap-[60px] sm:gap-[35px] gap-[20px]  justify-start items-center pb-10 ">
+          
             {profile.images.length && profile.images[0].url && (
               <img
                 src={profile.images[0].url}
                 alt="Avatar"
-                className="rounded-full object-contain h-[240px] "
+                className="rounded-full object-contain transform duration-300 lg:h-[240px] md:h-[200px] sm:h-[150px] h-[140px] "
               />
             )}
-          </div>
+          
           <div className="flex flex-col justify-start items-start">
             <a
               href={profile.external_urls.spotify}
               rel="noopener noreferrer"
               target="_blank"
-              className="text-white font-bold text-[72px]"
+              className="text-white font-bold transform duration-300 lg:text-[72px] md:text-[64px] sm:text-[60px] text-[50px] max-md:leading-[76px] max-sm:leading-[60px]"
             >
               {profile.display_name}
             </a>
-            <div className="flex flex-row justify-start gap-[20px] leading-[12px] items-center w-full">
-              <p className="text-white text-[18px]">
+            <div className="flex flex-row justify-start lg:gap-[20px] sm:gap-[16px] gap-[8px] leading-[12px] items-center w-full">
+              <p className="text-white lg:text-[18px] transform duration-300 sm:text-[16px] text-[14px]">
                 {profile.followers.total} Followers
               </p>
 
               {playlists && (
-                <p className="text-white text-[18px]">
+                <p className="text-white lg:text-[18px] transform duration-300 sm:text-[16px] text-[14px]">
                   {playlists.total} playlists
                 </p>
               )}
             </div>
             <button
-              className=" text-white border-white border-[1px] py-2 text-[15px] px-8 rounded-full mt-5 transform duration-300 hover:bg-white font-semibold hover:text-black ease-in-out"
+              className=" text-white border-white border-[1px] py-2 md:text-[15px] text-[12px] px-8 rounded-full mt-5 transform duration-300 hover:bg-white font-semibold hover:text-black ease-in-out"
               onClick={handleLogout}
             >
               Logout
@@ -96,13 +96,13 @@ const Dashboard = ({ token }) => {
       )}
 
       <div className="flex flex-col w-full justify-start items-start  ">
-        <h3 className="text-white font-semibold text-[28px] pb-4">
+        <h3 className="text-white font-semibold lg:text-[28px] sm:text-[24px] text-[18px] pb-4">
           Recently Played
         </h3>
-        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite pb-2 mb-5 px-6">
-          <p className="text-semiwhite w-[50%] text-[17px]">Track</p>
-          <p className="text-semiwhite w-[30%] text-[17px]">Album</p>
-          <p className="text-semiwhite w-[20%] text-[17px]">Played at</p>
+        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite pb-2 md:mb-5 mb-3  md:px-6 px-2">
+          <p className="text-semiwhite lg:w-[50%] sm:w-[80%] w-[70%] lg:text-[17px] text-[14px] md:text-[16px] ">Track</p>
+          <p className="text-semiwhite w-[30%] lg:text-[17px] text-[14px] md:text-[16px] lg:inline hidden">Album</p>
+          <p className="text-semiwhite sm:w-[20%] w-[30%] lg:text-[17px] text-[14px] md:text-[16px]">Played at</p>
         </div>
         {currentTrack && currentTrack.item && (
           <div className="w-full flex flex-col gap-3 justify-start items-start mb-3">

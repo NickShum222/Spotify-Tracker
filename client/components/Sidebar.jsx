@@ -171,44 +171,50 @@ const Sidebar = () => {
           ></div>
         </div>
       </div>
-      <div className={`w-[100vw] h-full ${nav ? "backdrop-blur-lg" : ""} md:hidden fixed  z-[40] duration-300 flex justify-center  transition-all ease-out `} onClick={() => {
-        toggleNav();
-      }}>
-      <div className={`${nav ? "" : "-translate-y-[300px]"} duration-300  ease-out transition-all transform w-full rounded-md z-[40] fixed bg-black md:hidden flex flex-col justify-center items-center mt-[70px] py-6 gap-3`}>
-        {navLinks.map((link, index) => (
-          <div
-            key={index}
-            className={`flex flex-row items-center w-full justify-center`}
-            onClick={() => {
-              setActive(link.path);
-              router.push(link.path);
-              toggleNav();
-            }}
-          >
-            {index === 0 && (
-              <BiHomeAlt2 className="text-semiwhite mr-2" size={"1.5em"} />
-            )}
-            {index === 1 && (
-              <TbMicrophone2 className="text-semiwhite mr-2" size={"1.5em"} />
-            )}
-            {index === 2 && (
-              <IoMusicalNotesOutline
-                className="text-semiwhite  mr-2"
-                size={"1.5em"}
-              />
-            )}
-            <Link href={link.path}>
-              <p className="text-semiwhite text-[22px]">
-                {link.name}
-              </p>
-            </Link>
-          </div>
-        ))}
-
-
+      <div
+        className={`transition-all duration-300 transform ${
+          nav
+            ? "fixed left-0 top-0 w-full h-screen opacity-100"
+            : "opacity-0 pointer-events-none"
+        } md:hidden backdrop-blur-lg z-[40]`}
+        onClick={() => {
+          toggleNav();
+        }}
+      >
+        <div
+          className={`${
+            nav ? "" : "-translate-y-[300px]"
+          } duration-300 ease-out transition-all transform md:hidden w-full rounded-md z-[40] fixed bg-black  flex flex-col justify-center items-center mt-[70px] py-6 gap-3`}
+        >
+          {navLinks.map((link, index) => (
+            <div
+              key={index}
+              className={`flex flex-row items-center w-full justify-center`}
+              onClick={() => {
+                setActive(link.path);
+                router.push(link.path);
+                toggleNav();
+              }}
+            >
+              {index === 0 && (
+                <BiHomeAlt2 className="text-semiwhite mr-2" size={"1.5em"} />
+              )}
+              {index === 1 && (
+                <TbMicrophone2 className="text-semiwhite mr-2" size={"1.5em"} />
+              )}
+              {index === 2 && (
+                <IoMusicalNotesOutline
+                  className="text-semiwhite  mr-2"
+                  size={"1.5em"}
+                />
+              )}
+              <Link href={link.path}>
+                <p className="text-semiwhite text-[22px]">{link.name}</p>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
-      </div>
-    
     </>
   );
 };
