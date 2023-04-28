@@ -43,35 +43,53 @@ const TopTrack = () => {
     <>
       <SEO />
       <section
-        className={` w-full min-h-[100vh] overflow-hidden bg-[#121212] xl:pl-[370px] xl:pr-[120px] lg:pl-[350px] lg:pr-[100px] md:pl-36 md:pr-[80px] pl-6 pr-6 py-24 z-[5] flex flex-col justify-start items-start `}
+        className={`xl:pl-[370px] xl:pr-[120px] bg-[#121212] lg:pl-[320px] lg:pr-[100px] md:pl-[200px] md:pr-[80px] pl-5 pr-5 md:py-24 py-12 z-[5] pt-[90px] flex flex-col justify-start items-start min-h-[100vh]`}
       >
         <h1 className="text-white font-semibold text-[28px] pb-4">
           Top Tracks
         </h1>
-        <div className="flex flex-row w-full gap-4 ">
-          <button className="text-white" onClick={() => setRange("short_term")}>
+        <div className=" flex-row w-full gap-4 mb-6 md:flex hidden">
+          <button
+            className={` text-[18px] border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+              range === "short_term"
+                ? "border-b-[2px] text-spotify"
+                : "text-white"
+            } `}
+            onClick={() => setRange("short_term")}
+          >
             Last Month
           </button>
           <button
-            className="text-white"
+            className={` text-[18px] border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+              range === "medium_term"
+                ? "border-b-[2px] text-spotify"
+                : "text-white"
+            } `}
             onClick={() => setRange("medium_term")}
           >
             Last 6 Months
           </button>
-          <button className="text-white" onClick={() => setRange("long_term")}>
+          <button
+            className={` text-[18px] border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+              range === "long_term"
+                ? "border-b-[2px] text-spotify"
+                : "text-white"
+            } `}
+            onClick={() => setRange("long_term")}
+          >
             All Time
           </button>
         </div>
-        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite pb-2 mb-5 px-6">
-          <p className="text-semiwhite w-[50%] text-[17px]">Track</p>
-          <p className="text-semiwhite w-[30%] text-[17px]">Album</p>
-          <p className="text-semiwhite w-[20%] text-[17px]">Duration</p>
+        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite pb-2 md:mb-5 mb-3  md:px-6 px-2">
+          <p className="text-semiwhite lg:w-[50%] sm:w-[80%] w-[70%] lg:text-[17px] text-[14px] md:text-[16px] ">Track</p>
+          <p className="text-semiwhite w-[30%] lg:text-[17px] text-[14px] md:text-[16px] lg:inline hidden">Album</p>
+          <p className="text-semiwhite sm:w-[20%] w-[30%] lg:text-[17px] text-[14px] md:text-[16px] text-end">Duration</p>
         </div>
         {topTracks && topTracks.items && (
           <div className="w-full flex flex-col gap-3 justify-start items-start">
             {topTracks.items.map((track, index) => (
               <div className="flex flex-row justify-start items-center w-full">
-                <p className="text-white w-[1%]">{index + 1}.</p>
+                <p className="text-white w-[1%] mr-1">{index + 1}.</p>
                 <Track
                   key={index}
                   img={track.album.images[0].url}
@@ -88,6 +106,40 @@ const TopTrack = () => {
           </div>
         )}
       </section>
+      <div className="h-[70px] w-full bg-black bottom-0 fixed md:hidden inline">
+        <div className="w-full h-full flex flex-row justify-around items-center ">
+          <button
+            className={` text-[16px] font-semibold h-full border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+              range === "short_term"
+                ? "border-t-[3px] text-spotify"
+                : "text-white"
+            } `}
+            onClick={() => setRange("short_term")}
+          >
+            Last Month
+          </button>
+          <button
+            className={` text-[16px] h-full font-semibold  border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+              range === "medium_term"
+                ? "border-t-[3px] text-spotify"
+                : "text-white"
+            } `}
+            onClick={() => setRange("medium_term")}
+          >
+            Last 6 Months
+          </button>
+          <button
+            className={` text-[16px] h-full font-semibold border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+              range === "long_term"
+                ? "border-t-[3px] text-spotify"
+                : "text-white"
+            } `}
+            onClick={() => setRange("long_term")}
+          >
+            All Time
+          </button>
+        </div>
+      </div>
     </>
   );
 };

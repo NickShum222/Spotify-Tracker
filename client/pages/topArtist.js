@@ -99,7 +99,7 @@ const TopArtists = () => {
       <div className="h-[70px] w-full bg-black bottom-0 fixed md:hidden inline">
         <div className="w-full h-full flex flex-row justify-around items-center ">
           <button
-            className={` text-[16px] h-full border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+            className={` text-[16px] font-semibold h-full border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
               range === "short_term"
                 ? "border-t-[3px] text-spotify"
                 : "text-white"
@@ -109,7 +109,7 @@ const TopArtists = () => {
             Last Month
           </button>
           <button
-            className={` text-[16px] h-full  border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+            className={` text-[16px] h-full font-semibold  border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
               range === "medium_term"
                 ? "border-t-[3px] text-spotify"
                 : "text-white"
@@ -119,7 +119,7 @@ const TopArtists = () => {
             Last 6 Months
           </button>
           <button
-            className={` text-[16px] h-full border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+            className={` text-[16px] h-full font-semibold border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
               range === "long_term"
                 ? "border-t-[3px] text-spotify"
                 : "text-white"

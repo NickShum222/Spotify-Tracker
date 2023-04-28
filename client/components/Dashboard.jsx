@@ -54,7 +54,7 @@ const Dashboard = ({ token }) => {
               <img
                 src={profile.images[0].url}
                 alt="Avatar"
-                className="rounded-full object-contain transform duration-300 lg:h-[240px] md:h-[200px] sm:h-[150px] h-[140px] "
+                className="rounded-full aspect-square object-contain transform duration-300 lg:h-[240px] md:h-[200px] sm:h-[150px] h-[140px] "
               />
             )}
           

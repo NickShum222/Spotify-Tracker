@@ -81,13 +81,25 @@ const Track = ({
       >
         {album}
       </div>
+      { recent && (
       <div
-        className={`${
-          current ? "text-spotify" : "text-semiwhite"
-        } sm:w-[20%] w-[30%] md:text-[16px] sm:text-[14px] text-[13px]`}
-      >
-        {recent ? playedDateDisplay : timeDisplay}
-      </div>
+      className={`${
+        current ? "text-spotify" : "text-semiwhite"
+      } sm:w-[20%] w-[30%] md:text-[16px] sm:text-[14px] text-[13px]`}
+    >
+      {playedDateDisplay}
+    </div>
+      )}
+
+{ !recent && (
+      <div
+      className={` text-end ${
+        current ? "text-spotify" : "text-semiwhite"
+      } sm:w-[20%] w-[30%] md:text-[16px] sm:text-[14px] text-[13px]`}
+    >
+      {timeDisplay}
+    </div>
+      )}
       </a>
     </div>
   );
