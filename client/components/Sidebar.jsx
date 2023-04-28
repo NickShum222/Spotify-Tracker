@@ -63,12 +63,12 @@ const Sidebar = () => {
   return (
     <>
       <div className="bg-black md:h-[100vh] max-md:w-[100vw] lg:w-[250px] md:w-[150px] md:px-0 px-4 fixed h-[70px] flex md:flex-col flex-row md:justify-start items-center justify-between shadow-2xl z-50">
-        <h3 className="text-white font-semibold lg:text-[28px] text-[22px] md:pt-5">
+        <h3 className="text-white font-semibold lg:text-[28px] text-[22px] md:pt-5 transform duration-300">
           Spoti<span className="text-spotify italic ">Track</span>
         </h3>
         {/* Desktop Menu */}
-        <div className="md:flex md:flex-col hidden lg:justify-start lg:items-start justify-center items-center w-full lg:px-0 px-4 lg:pl-6 mt-16">
-          <p className="text-semiwhite lg:text-[22px] md:text-[20px] font-light mb-2">
+        <div className=" md:flex md:flex-col hidden lg:justify-start lg:items-start justify-center items-center w-full lg:px-0 px-4 lg:pl-6 mt-16">
+          <p className="text-semiwhite transform duration-300 lg:text-[22px] md:text-[20px] font-light mb-2">
             Menu
           </p>
           <div className="w-full lg:bg-transparent md:bg-[#121212] rounded-lg">
@@ -101,7 +101,7 @@ const Sidebar = () => {
                   />
                 )}
                 <Link href={link.path}>
-                  <p className="text-semiwhite lg:text-[18px] md:text-[15px]">
+                  <p className="text-semiwhite transform duration-300 lg:text-[18px] md:text-[15px]">
                     {link.name}
                   </p>
                 </Link>
@@ -110,12 +110,12 @@ const Sidebar = () => {
           </div>
 
           <div className="flex flex-col lg:justify-start lg:items-start justify-center items-center  lg:mt-4 mt-8 w-full">
-            <p className="text-semiwhite lg:text-[22px] md:text-[20px] font-light mb-2">
+            <p className="text-semiwhite transform duration-300 lg:text-[22px] md:text-[20px] font-light mb-2">
               Playlists
             </p>
             <div className="w-full h-[350px] overflow-y-scroll md:bg-[#121212] lg:bg-transparent rounded-lg  mt-2">
               {playlists && playlists.items && (
-                <div className="flex flex-col w-full lg:gap-1 gap-3 lg:px-0 px-4 lg:pt-0  md:pt-4 justify-start items-start">
+                <div className="flex flex-col w-full transform duration-300 lg:gap-1 gap-3 lg:px-0 px-4 lg:pt-0  md:pt-4 justify-start items-start">
                   {playlists.items.map((playlist, index) => (
                     <div key={index} className={` w-full `}>
                       <p
@@ -127,7 +127,7 @@ const Sidebar = () => {
                           active === playlist.id
                             ? "text-spotify"
                             : "text-semiwhite"
-                        } text-[18px] cursor-pointer`}
+                        } transform duration-300 text-[18px] cursor-pointer`}
                       >
                         {playlist.name}
                       </p>
