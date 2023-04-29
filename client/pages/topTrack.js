@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import SEO from "@/components/SEO";
 import { getTopTracks } from "@/components/SpotifyAuth";
 import Track from "@/components/Track";
@@ -80,21 +79,23 @@ const TopTrack = () => {
             All Time
           </button>
         </div>
-        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite pb-2 md:mb-5 mb-3  md:px-6 px-2">
-          <p className="text-semiwhite lg:w-[50%] sm:w-[80%] w-[70%] lg:text-[17px] text-[14px] md:text-[16px] ">Track</p>
-          <p className="text-semiwhite w-[30%] lg:text-[17px] text-[14px] md:text-[16px] lg:inline hidden">Album</p>
-          <p className="text-semiwhite sm:w-[20%] w-[30%] lg:text-[17px] text-[14px] md:text-[16px] text-end">Duration</p>
+        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite  pb-2 md:mb-5 mb-3  md:pr-6 pr-2 md:pl-[44px] pl-[26px]">
+          <p className="text-semiwhite lg:w-[50%] sm:w-[80%] w-[70%] lg:text-[17px] text-[16px] ">Track</p>
+          <p className="text-semiwhite w-[30%] lg:text-[17px] text-[16px] lg:inline hidden">Album</p>
+          <p className="text-semiwhite sm:w-[20%] w-[30%] lg:text-[17px] text-[16px] text-end">Duration</p>
         </div>
         {topTracks && topTracks.items && (
           <div className="w-full flex flex-col gap-3 justify-start items-start">
             {topTracks.items.map((track, index) => (
               <div className="flex flex-row justify-start items-center w-full">
-                <p className="text-white w-[1%] mr-1">{index + 1}.</p>
+                <p className="text-semiwhite w-[10px] mr-2 md:text-[16px] sm:text-[14px] text-[13px]">{index + 1}.</p>
                 <Track
                   key={index}
                   img={track.album.images[0].url}
                   title={track.name}
-                  artist={track.artists[0].name}
+                  artist={track.artists
+                    .map((artist) => artist.name)
+                    .join(", ")}
                   album={track.album.name}
                   time={track.duration_ms}
                   url={track.external_urls.spotify}

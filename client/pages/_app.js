@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import '@/styles/globals.css'
 import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -20,8 +21,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <div>
-      {!isLoginPage && <Sidebar />}
+      {!isLoginPage && <Sidebar /> }
       <Component {...pageProps} />
+      {!isLoginPage && <Footer /> }
     </div>
   );
 }

@@ -9,7 +9,7 @@
   font-family: "Montserrat", sans-serif;
   scroll-behavior: smooth;
   transition-property: all;
-  
+  transition-duration: 0.15s;
 }
 
 ::-webkit-scrollbar {

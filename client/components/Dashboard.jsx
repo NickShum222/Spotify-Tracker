@@ -49,21 +49,26 @@ const Dashboard = ({ token }) => {
     >
       {profile && (
         <div className="w-full flex flex-row md:gap-[60px] sm:gap-[35px] gap-[20px]  justify-start items-center pb-10 ">
-          
-            {profile.images.length && profile.images[0].url && (
+          {profile.images.length && profile.images[0].url && (
+            <a
+              href={profile.external_urls.spotify}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <img
                 src={profile.images[0].url}
                 alt="Avatar"
                 className="rounded-full aspect-square object-contain transform duration-300 lg:h-[240px] md:h-[200px] sm:h-[150px] h-[140px] "
               />
-            )}
-          
+            </a>
+          )}
+
           <div className="flex flex-col justify-start items-start">
             <a
               href={profile.external_urls.spotify}
               rel="noopener noreferrer"
               target="_blank"
-              className="text-white font-bold transform duration-300 lg:text-[72px] md:text-[64px] sm:text-[60px] text-[50px] max-md:leading-[76px] max-sm:leading-[60px]"
+              className="text-white font-bold transform duration-300 lg:text-[72px] md:text-[64px] sm:text-[60px] text-[50px] max-md:leading-[76px] max-sm:leading-[60px] hover:text-spotify"
             >
               {profile.display_name}
             </a>
@@ -100,16 +105,24 @@ const Dashboard = ({ token }) => {
           Recently Played
         </h3>
         <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite pb-2 md:mb-5 mb-3  md:px-6 px-2">
-          <p className="text-semiwhite lg:w-[50%] sm:w-[80%] w-[70%] lg:text-[17px] text-[14px] md:text-[16px] ">Track</p>
-          <p className="text-semiwhite w-[30%] lg:text-[17px] text-[14px] md:text-[16px] lg:inline hidden">Album</p>
-          <p className="text-semiwhite sm:w-[20%] w-[30%] lg:text-[17px] text-[14px] md:text-[16px]">Played at</p>
+          <p className="text-semiwhite lg:w-[50%] sm:w-[80%] w-[70%] lg:text-[17px] text-[14px] md:text-[16px] ">
+            Track
+          </p>
+          <p className="text-semiwhite w-[30%] lg:text-[17px] text-[14px] md:text-[16px] lg:inline hidden">
+            Album
+          </p>
+          <p className="text-semiwhite sm:w-[20%] w-[30%] lg:text-[17px] text-[14px] md:text-[16px]">
+            Played at
+          </p>
         </div>
         {currentTrack && currentTrack.item && (
           <div className="w-full flex flex-col gap-3 justify-start items-start mb-3">
             <Track
               img={currentTrack.item.album.images[0].url}
               title={currentTrack.item.name}
-              artist={currentTrack.item.artists[0].name}
+              artist={currentTrack.item.artists
+                .map((artist) => artist.name)
+                .join(", ")}
               album={currentTrack.item.album.name}
               time={currentTrack.item.duration_ms}
               url={currentTrack.item.external_urls.spotify}
@@ -127,7 +140,9 @@ const Dashboard = ({ token }) => {
                 key={index}
                 img={track.track.album.images[0].url}
                 title={track.track.name}
-                artist={track.track.artists[0].name}
+                artist={track.track.artists
+                  .map((artist) => artist.name)
+                  .join(", ")}
                 album={track.track.album.name}
                 time={track.track.duration_ms}
                 url={track.track.external_urls.spotify}

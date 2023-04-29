@@ -64,7 +64,9 @@ const Sidebar = () => {
     <>
       <div className="bg-black md:h-[100vh] max-md:w-[100vw] lg:w-[250px] md:w-[150px] md:px-0 px-4 fixed h-[70px] flex md:flex-col flex-row md:justify-start items-center justify-between shadow-2xl z-50">
         <h3 className="text-white font-semibold lg:text-[28px] text-[22px] md:pt-5 transform duration-300">
-          Spoti<span className="text-spotify italic ">Track</span>
+          <a href="/">
+            Spoti<span className="text-spotify italic ">Track</span>
+          </a>
         </h3>
         {/* Desktop Menu */}
         <div className=" md:flex md:flex-col hidden lg:justify-start lg:items-start justify-center items-center w-full lg:px-0 px-4 lg:pl-6 mt-16">
@@ -75,7 +77,7 @@ const Sidebar = () => {
             {navLinks.map((link, index) => (
               <div
                 key={index}
-                className={`duration-150  ease-in transform  rounded-l-sm border-r-[4px] flex lg:flex-row md:flex-col  border-spotify md:justify-start md:items-center justify-center items-center w-full py-2 md:px-4 cursor-pointer ${
+                className={`duration-150 group ease-in transform  rounded-l-sm border-r-[4px] flex lg:flex-row md:flex-col  border-spotify md:justify-start md:items-center justify-center items-center w-full py-2 md:px-4 cursor-pointer ${
                   active === link.path
                     ? "border-opacity-100 "
                     : "border-opacity-0 hover:border-opacity-100"
@@ -86,22 +88,25 @@ const Sidebar = () => {
                 }}
               >
                 {index === 0 && (
-                  <BiHomeAlt2 className="text-semiwhite mr-2" size={"1.1em"} />
+                  <BiHomeAlt2
+                    className="group-hover:text-spotify text-semiwhite mr-2"
+                    size={"1.1em"}
+                  />
                 )}
                 {index === 1 && (
                   <TbMicrophone2
-                    className="text-semiwhite mr-2"
+                    className="group-hover:text-spotify text-semiwhite mr-2"
                     size={"1.3em"}
                   />
                 )}
                 {index === 2 && (
                   <IoMusicalNotesOutline
-                    className="text-semiwhite  mr-2"
+                    className="group-hover:text-spotify text-semiwhite  mr-2"
                     size={"1.3em"}
                   />
                 )}
                 <Link href={link.path}>
-                  <p className="text-semiwhite transform duration-300 lg:text-[18px] md:text-[15px]">
+                  <p className="group-hover:text-spotify text-semiwhite transform duration-300 lg:text-[18px] md:text-[15px]">
                     {link.name}
                   </p>
                 </Link>
@@ -171,6 +176,7 @@ const Sidebar = () => {
           ></div>
         </div>
       </div>
+
       <div
         className={`transition-all duration-300 transform ${
           nav
@@ -182,14 +188,14 @@ const Sidebar = () => {
         }}
       >
         <div
-          className={`${
+          className={` ${
             nav ? "" : "-translate-y-[300px]"
           } duration-300 ease-out transition-all transform md:hidden w-full rounded-md z-[40] fixed bg-black  flex flex-col justify-center items-center mt-[70px] py-6 gap-3`}
         >
           {navLinks.map((link, index) => (
             <div
               key={index}
-              className={`flex flex-row items-center w-full justify-center`}
+              className={`flex group flex-row items-center w-full justify-center`}
               onClick={() => {
                 setActive(link.path);
                 router.push(link.path);
@@ -197,22 +203,53 @@ const Sidebar = () => {
               }}
             >
               {index === 0 && (
-                <BiHomeAlt2 className="text-semiwhite mr-2" size={"1.5em"} />
+                <BiHomeAlt2
+                  className="group-hover:text-spotify text-semiwhite mr-2"
+                  size={"1.5em"}
+                />
               )}
               {index === 1 && (
-                <TbMicrophone2 className="text-semiwhite mr-2" size={"1.5em"} />
+                <TbMicrophone2
+                  className="group-hover:text-spotify text-semiwhite mr-2"
+                  size={"1.5em"}
+                />
               )}
               {index === 2 && (
                 <IoMusicalNotesOutline
-                  className="text-semiwhite  mr-2"
+                  className=" group-hover:text-spotify text-semiwhite  mr-2"
                   size={"1.5em"}
                 />
               )}
               <Link href={link.path}>
-                <p className="text-semiwhite text-[22px]">{link.name}</p>
+                <p className="group-hover:text-spotify text-semiwhite text-[20px]">
+                  {link.name}
+                </p>
               </Link>
             </div>
           ))}
+          <div className="flex flex-col justify-center items-center mt-6">
+            <h3 className="text-semiwhite text-[20px] mb-4">Playlists</h3>
+            <div className="w-full h-[200px] overflow-y-scroll md:bg-[#121212] lg:bg-transparent rounded-lg  mt-2 px-4">
+              {playlists && playlists.items && (
+                <div className="grid grid-cols-3 justify-center items-center w-full transform duration-300 gap-x-5 gap-y-3 px-4 lg:pt-0  md:pt-4 ">
+                  {playlists.items.map((playlist, index) => (
+                    <div key={index} className={` w-full `}>
+                      <p
+                        onClick={() => {
+                          setActive(playlist.id);
+                          router.push(playlist.id);
+                        }}
+                        className={`text-semiwhite duration-150  ease-in transition-all  transform text-[16px] cursor-pointer`}
+                      >
+                        {playlist.name}
+                      </p>
+        
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
