@@ -38,7 +38,7 @@ export const getAccessToken = () => {
           logout();
         }
         const refreshTokenLink =
-          "http://localhost:3000/refresh_token?refresh_token=" +
+          "/refresh_token?refresh_token=" +
           LOCALSTORAGE_VALUES.refreshToken;
         console.log(refreshTokenLink);
         const { data } = await axios.get(refreshTokenLink);

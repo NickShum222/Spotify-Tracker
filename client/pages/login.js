@@ -3,6 +3,7 @@ import Head from "next/head";
 import SEO from "@/components/SEO";
 
 const Login = () => {
+  const SERVER_URL = process.env.SERVER_URL;
   return (
     <>
       <SEO />
@@ -11,7 +12,7 @@ const Login = () => {
           <div className="text-white lg:text-[80px] md:text-[64px] sm:text-[54px] text-[42px]  font-semibold">
             Spoti<span className="text-spotify italic">Track</span>
           </div>
-          <a href="http://localhost:3000/api/login" className="w-full flex justify-center items-center">
+          <a href={`/api/login`} className="w-full flex justify-center items-center">
           <button className="bg-spotify text-white uppercase font-semibold lg:text-[24px] md:text-[22px] sm:text-[20px] text-[18px] md:py-3 py-2 lg:px-[70px] md:px-[54px] sm:px-[50px] px-[42px] rounded-full transform  duration-300 ease-in-out hover:bg-transparent border-[2px] border-spotify hover:text-spotify">
             Login to spotify
           </button>

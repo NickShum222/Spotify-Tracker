@@ -33,7 +33,7 @@ export default function handler(req, res) {
         })
 
         
-        res.redirect(`http://localhost:3000/?${queryParams}`)
+        res.redirect(`/?${queryParams}`)
       } else {
         res.status(response.status).json({ error: 'invalid_token' })
       }
