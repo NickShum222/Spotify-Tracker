@@ -33,7 +33,6 @@ const TopArtists = () => {
     const fetchData = async () => {
       const getTopArtist = await getTopArtists(token, range);
       setTopArtists(getTopArtist.data);
-      console.log(getTopArtist);
     };
     const timeoutId = setTimeout(() => {
       catchErrors(fetchData)();
@@ -109,7 +108,7 @@ const TopArtists = () => {
             Last Month
           </button>
           <button
-            className={` text-[16px] h-full font-semibold  border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
+            className={` text-[16px] h-full font-semibold border-spotify hover:text-spotify cursor-pointer transform duration-150 ${
               range === "medium_term"
                 ? "border-t-[3px] text-spotify"
                 : "text-white"

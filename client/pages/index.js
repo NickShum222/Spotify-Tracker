@@ -15,7 +15,7 @@ export default function Home() {
       if (!token) {
         router.push("/login");
       }
-    }, 50); 
+    }, 10000); 
     return () => clearTimeout(timeoutId); 
   }, [token, router]);
   

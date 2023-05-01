@@ -31,7 +31,7 @@ const Sidebar = () => {
     const fetchData = async () => {
       const getPlaylists = await getUserPlaylist(token);
       setPlaylists(getPlaylists.data);
-      console.log(getPlaylists);
+      
     };
     const timeoutId = setTimeout(() => {
       catchErrors(fetchData)();
@@ -235,6 +235,7 @@ const Sidebar = () => {
                   {playlists.items.map((playlist, index) => (
                     <div key={index} className={` w-full `}>
                       <p
+                        key={index}
                         onClick={() => {
                           setActive(playlist.id);
                           router.push(playlist.id);

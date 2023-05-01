@@ -8,6 +8,7 @@ const LOCALSTORAGE_KEYS = {
   expireTime: "spotify_token_expire_time",
   timestamp: "spotify_token_timestamp",
 };
+
 export const getAccessToken = () => {
   const [token, setToken] = useState(null);
   useEffect(() => {
@@ -38,7 +39,7 @@ export const getAccessToken = () => {
           logout();
         }
         const refreshTokenLink =
-          "/refresh_token?refresh_token=" +
+          "http://localhost:8888/refresh_token?refresh_token=" +
           LOCALSTORAGE_VALUES.refreshToken;
         console.log(refreshTokenLink);
         const { data } = await axios.get(refreshTokenLink);

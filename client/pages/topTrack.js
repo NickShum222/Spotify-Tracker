@@ -30,7 +30,6 @@ const TopTrack = () => {
     const fetchData = async () => {
       const getTopTrack = await getTopTracks(token, range);
       setTopTracks(getTopTrack.data);
-      console.log(getTopTrack);
     };
     const timeoutId = setTimeout(() => {
       catchErrors(fetchData)();
@@ -79,7 +78,7 @@ const TopTrack = () => {
             All Time
           </button>
         </div>
-        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite  pb-2 md:mb-5 mb-3  md:pr-6 pr-2 md:pl-[44px] pl-[26px]">
+        <div className="border-b-[1px] w-full flex flex-row justify-around items-center border-semiwhite  pb-2 md:mb-5 mb-3  md:pr-6  md:pl-[44px] pl-[26px]">
           <p className="text-semiwhite lg:w-[50%] sm:w-[80%] w-[70%] lg:text-[17px] text-[16px] ">Track</p>
           <p className="text-semiwhite w-[30%] lg:text-[17px] text-[16px] lg:inline hidden">Album</p>
           <p className="text-semiwhite sm:w-[20%] w-[30%] lg:text-[17px] text-[16px] text-end">Duration</p>
@@ -87,7 +86,7 @@ const TopTrack = () => {
         {topTracks && topTracks.items && (
           <div className="w-full flex flex-col gap-3 justify-start items-start">
             {topTracks.items.map((track, index) => (
-              <div className="flex flex-row justify-start items-center w-full">
+              <div key={index} className="flex flex-row justify-start items-center w-full">
                 <p className="text-semiwhite w-[10px] mr-2 md:text-[16px] sm:text-[14px] text-[13px]">{index + 1}.</p>
                 <Track
                   key={index}

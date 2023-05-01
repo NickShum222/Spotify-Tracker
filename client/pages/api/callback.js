@@ -33,7 +33,7 @@ export default function handler(req, res) {
         })
 
         
-        res.redirect(`/?${queryParams}`)
+        res.redirect(`/${queryParams}`)
       } else {
         res.status(response.status).json({ error: 'invalid_token' })
       }
@@ -42,4 +42,5 @@ export default function handler(req, res) {
       res.status(500).json({ error: error.message })
     })
 }
-``
+
+

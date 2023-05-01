@@ -19,3 +19,4 @@ export default function handler(req, res) {
 
   res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 }
+

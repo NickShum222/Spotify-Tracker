@@ -32,7 +32,6 @@ const Playlist = () => {
     const fetchData = async () => {
       const getPlaylist = await getPlaylistItems(token, playlistId);
       setPlaylistItems(getPlaylist.data);
-      console.log(getPlaylist);
     };
     const timeoutId = setTimeout(() => {
       catchErrors(fetchData)();
@@ -66,7 +65,7 @@ const Playlist = () => {
                       href={playlistItems.external_urls.spotify}
                       rel="noopener noreferrer"
                       target="_blank"
-                      
+        
                     >
                       {playlistItems.name}
                     </a>
@@ -82,7 +81,6 @@ const Playlist = () => {
                       target="_blank">
                       {playlistItems.owner.display_name}
                       </a>
-                      
                     </p>
                     <p className="text-semiwhite ml-1">
                       • {playlistItems.tracks.items.length} tracks
@@ -105,7 +103,7 @@ const Playlist = () => {
                 </div>
                 <div className="flex flex-col w-full gap-3 justify-center items-center">
                   {playlistItems.tracks.items.map((track, index) => (
-                    <div className="flex flex-row justify-start items-center w-full">
+                    <div key={index} className="flex flex-row justify-start items-center w-full">
                       <p className="text-white w-[10px] mr-1 md:text-[16px] sm:text-[14px] text-[13px]">
                         {index + 1}.
                       </p>

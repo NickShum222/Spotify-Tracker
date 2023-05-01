@@ -51,7 +51,7 @@ const Track = ({
             )}
           </div>
 
-          <div className="flex flex-col h-[60px] lg:w-[500px] sm:w-[400px] w-[300px] justify-between truncate">
+          <div className="flex flex-col h-[60px] lg:w-[500px] sm:w-[400px] w-[200px] justify-between truncate">
             <p
               className={`group-hover:text-spotify ${
                 current ? "text-spotify" : "text-white"
