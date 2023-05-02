@@ -1,46 +1,34 @@
+import axios from 'axios';
+import querystring from 'querystring';
 
-import axios from 'axios'
-import querystring from 'querystring'
+export default async function handler(req, res) {
+  const code = req.query?.code || null;
 
-const CLIENT_ID = process.env.CLIENT_ID
-const CLIENT_SECRET = process.env.CLIENT_SECRET
-const REDIRECT_URI = process.env.REDIRECT_URI
-
-export default function handler(req, res) {
-  const code = req.query.code || null
-
-  axios({
+  const { data } = await axios({
     method: 'post',
     url: 'https://accounts.spotify.com/api/token',
     data: querystring.stringify({
       grant_type: 'authorization_code',
       code: code,
-      redirect_uri: REDIRECT_URI,
+      redirect_uri: process.env.REDIRECT_URI,
     }),
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+      Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
     },
-  })
-    .then(response => {
-      if (response.status === 200) {
-        const { access_token, refresh_token, expires_in } = response.data
+  });
 
-        const queryParams = querystring.stringify({
-          access_token,
-          refresh_token,
-          expires_in,
-        })
+  if (data && data.access_token) {
+    const queryParams = {
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+      expires_in: data.expires_in,
+    };
+    const queryString = querystring.stringify(queryParams);
+    const url = "/?" + queryString;
+    res.redirect(url);
 
-        
-        res.redirect(`/${queryParams}`)
-      } else {
-        res.status(response.status).json({ error: 'invalid_token' })
-      }
-    })
-    .catch(error => {
-      res.status(500).json({ error: error.message })
-    })
+  } else {
+    res.status(data.status).json({ error: 'invalid_token' });
+  }
 }
-
-
