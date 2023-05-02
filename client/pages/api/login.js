@@ -16,7 +16,8 @@ export default function handler(req, res) {
     state: state,
     scope: 'user-read-private user-read-email playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-recently-played user-top-read',
   })
+  const url = "https://accounts.spotify.com/authorize?" + queryParams;
 
-  res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+  res.redirect(url);
 }
 
