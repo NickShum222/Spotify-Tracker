@@ -9,13 +9,7 @@ export default function handler(req, res) {
   const state = generateCodeVerifier(16)
   res.setHeader('Set-Cookie', `${stateKey}=${state}`)
 
-  const queryParams = querystring.stringify({
-    client_id: CLIENT_ID,
-    response_type: 'code',
-    redirect_uri: encodeURIComponent(REDIRECT_URI),
-    state: state,
-    scope: 'user-read-private user-read-email playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-recently-played user-top-read',
-  })
+  const queryParams = `client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&state=${state}&scope=user-read-private%20user-read-email%20playlist-read-private%20playlist-read-collaborative%20user-read-currently-playing%20user-read-recently-played%20user-top-read`
   const url = "https://accounts.spotify.com/authorize?" + queryParams;
   console.log(url)
   res.redirect(url);
