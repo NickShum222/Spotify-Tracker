@@ -12,12 +12,12 @@ export default function handler(req, res) {
   const queryParams = querystring.stringify({
     client_id: CLIENT_ID,
     response_type: 'code',
-    redirect_uri: REDIRECT_URI,
+    redirect_uri: encodeURIComponent(REDIRECT_URI),
     state: state,
     scope: 'user-read-private user-read-email playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-recently-played user-top-read',
   })
   const url = "https://accounts.spotify.com/authorize?" + queryParams;
-
+  console.log(url)
   res.redirect(url);
 }
 

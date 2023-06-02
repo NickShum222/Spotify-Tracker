@@ -15,14 +15,6 @@ import Track from "@/components/Track";
 export default function Home() {
   const token = getAccessToken();
   const router = useRouter();
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (!token) {
-        router.push("/login");
-      }
-    }, 2000);
-    return () => clearTimeout(timeoutId);
-  }, [token, router]);
   const catchErrors = (fn) => {
     return function (...args) {
       return fn(...args).catch((err) => {
@@ -38,8 +30,11 @@ export default function Home() {
   const [playlists, setPlaylists] = useState(null);
   const [tracks, setTracks] = useState(null);
   const [currentTrack, setCurrentTrack] = useState(null);
+  
 
   useEffect(() => {
+    // Fetching user profile, user playlists, recently played tracks, and currently playing track data from Spotify API
+
     const fetchData = async () => {
       const userProfile = await getUserProfile(token);
       setProfile(userProfile.data);
@@ -54,7 +49,9 @@ export default function Home() {
       setCurrentTrack(currentlyPlaying.data);
     };
 
-    const timeoutId = setTimeout(() => {
+  
+
+ const timeoutId = setTimeout(() => {
       catchErrors(fetchData)();
     }, 10);
     return () => clearTimeout(timeoutId);

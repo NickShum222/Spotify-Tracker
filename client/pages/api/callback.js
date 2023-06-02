@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
     },
   });
-
+//https%3A%2F%2Fspotify-tracker-two.vercel.app%2Fapi%2Fcallback%0A
   if (data && data.access_token) {
     const queryParams = {
       access_token: data.access_token,

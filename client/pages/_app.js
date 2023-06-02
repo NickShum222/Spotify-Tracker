@@ -10,13 +10,15 @@ export default function App({ Component, pageProps }) {
   const isLoginPage = router.pathname === '/login';
   useEffect(() => {
     const token = localStorage.getItem("spotify_access_token");
-    if (!token) {
-      router.push("/login");
-    }
-    else{
-      setToken(token);
-    }
-  }, []);
+    const timeoutId = setTimeout(() => {
+      if (!token) {
+        router.push("/login");
+      }
+    }, 2000);
+    return () => clearTimeout(timeoutId);
+  }, [token, router]);
+
+  
 
 
   return (
