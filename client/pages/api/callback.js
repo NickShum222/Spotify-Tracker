@@ -1,6 +1,7 @@
 import axios from 'axios';
 import querystring from 'querystring';
-
+import { getAccessToken } from '@/components/SpotifyAuth';
+//const token = getAccessToken();
 export default async function handler(req, res) {
   const code = req.query?.code || null;
 
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
     method: 'post',
     url: 'https://accounts.spotify.com/api/token',
     data: querystring.stringify({
-      grant_type: 'authorization_code',
+      grant_type: 'authorization_code', 
       code: code,
       redirect_uri: process.env.REDIRECT_URI,
     }),
@@ -17,7 +18,6 @@ export default async function handler(req, res) {
       Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
     },
   });
-//https%3A%2F%2Fspotify-tracker-two.vercel.app%2Fapi%2Fcallback%0A
   if (data && data.access_token) {
     const queryParams = {
       access_token: data.access_token,

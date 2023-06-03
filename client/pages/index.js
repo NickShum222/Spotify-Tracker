@@ -26,6 +26,7 @@ export default function Home() {
   const handleLogout = () => {
     logout();
   };
+
   const [profile, setProfile] = useState(null);
   const [playlists, setPlaylists] = useState(null);
   const [tracks, setTracks] = useState(null);
