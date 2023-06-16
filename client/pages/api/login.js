@@ -21,6 +21,7 @@ export default function handler(req, res) {
   //https://accounts.spotify.com/authorize?client_id=2ead1c2c18914a09b96cf71601bfbc02&response_type=code&redirect_uri=https://spotify-tracker-two.vercel.app/api/callback&state=21342345&scope=user-read-private%20user-read-email%20playlist-read-private%20playlist-read-collaborative%20user-read-currently-playing%20user-read-recently-played%20user-top-read
   const url = "https://accounts.spotify.com/authorize?" + queryParams;
   console.log(url)
-  res.redirect(url);
+  res.writeHead(302, { Location: url });
+  res.end();
 }
 
