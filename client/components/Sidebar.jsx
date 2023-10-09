@@ -31,7 +31,6 @@ const Sidebar = () => {
     const fetchData = async () => {
       const getPlaylists = await getUserPlaylist(token);
       setPlaylists(getPlaylists.data);
-      
     };
     const timeoutId = setTimeout(() => {
       catchErrors(fetchData)();
@@ -244,7 +243,6 @@ const Sidebar = () => {
                       >
                         {playlist.name}
                       </p>
-        
                     </div>
                   ))}
                 </div>
